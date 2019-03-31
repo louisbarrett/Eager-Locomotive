@@ -1,8 +1,8 @@
 # Main cloudtrail resource
 resource "aws_cloudtrail" "ManagementEvents" {
-  name           = "${var.cloudtrail_s3_bucket}"
-  s3_bucket_name = "${aws_s3_bucket.CloudTrail.id}"
-  count          = "${var.count}"
+  name                  = "${var.cloudtrail_s3_bucket}"
+  s3_bucket_name        = "${aws_s3_bucket.CloudTrail.id}"
+  count                 = "${var.count}"
   is_multi_region_trail = true
 }
 
