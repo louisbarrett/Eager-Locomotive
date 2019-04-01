@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "cloudtrail-kin" {
   function_name = "cloudtrail-kin"
   description   = "Delivers centralized cloudtrail logs into elasticsearch"
-  filename      = "./Deployment/cloudtrail-kin.zip"
+  filename      = "./KekStack/Deployment/cloudtrail-kin.zip"
   handler       = "cloudtrail-kin"
   runtime       = "go1.x"
   role          = "${aws_iam_role.lambda-role.arn}"
@@ -23,12 +23,14 @@ resource "aws_iam_role" "lambda-role" {
 
 data "aws_iam_policy_document" "CloudTrailAssumeRole" {
   statement {
-    sid     = "LambdaAssumeRole"
-    effect  = "Allow"
+    sid    = "LambdaAssumeRole"
+    effect = "Allow"
+
     principals = {
-      type =  "Service"
+      type        = "Service"
       identifiers = ["lambda.amazonaws.com"]
     }
+
     actions = ["sts:AssumeRole"]
   }
 }
@@ -59,7 +61,7 @@ data "aws_iam_policy_document" "CloudTrailS3ToKin" {
     resources = ["*"]
   }
 
-    statement {
+  statement {
     sid       = "LogsAccess"
     effect    = "Allow"
     actions   = ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"]

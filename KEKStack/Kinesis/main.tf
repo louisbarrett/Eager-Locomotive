@@ -20,6 +20,7 @@ resource aws_kinesis_firehose_delivery_stream "outgoing-firehose-es" {
     buffer_interval    = 60
     compression_format = "GZIP"
     prefix             = "${var.log_source}/"
+    
   }
 
   elasticsearch_configuration {

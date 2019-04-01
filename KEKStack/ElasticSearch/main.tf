@@ -27,13 +27,6 @@ resource "aws_elasticsearch_domain" "es" {
     enabled = false
   }
 
-  # revisit enabling cognito authentication
-  #   cognito_options {
-  #     enabled          = true
-  #     user_pool_id     = "${aws_cognito_user_pool.pool.id}"
-  #     identity_pool_id = "${aws_cognito_identity_pool.AuthenticatedUsers.id}"
-  #     role_arn         = "${aws_iam_role.ES-Cognito-Access.arn}"
-  #   }
 }
 
 # Load current execution context
@@ -56,7 +49,7 @@ data "aws_iam_policy_document" "es-domain-policy" {
       values   = ["136.25.13.183/32"]
     }
   }
-}
+}s
 
 # data section for cognito
 data "aws_iam_policy_document" "es-domain-firehose-policy" {

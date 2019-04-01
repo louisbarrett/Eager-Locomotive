@@ -1,5 +1,4 @@
 variable "ES_Domain" {
-  default     = "kekstack-alpha"
   description = "The name to use when creating the elastic search domain (must be lowercase)"
 }
 
