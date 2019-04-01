@@ -9,7 +9,7 @@ As of 3/30/2019 AWS doesn't have a good method of easily analyzing it's native (
 4. Kinesis Firehose for delivering Cloudtrail events to ElasticSearch
 
 
-##To-Do
+## To-Do
 
 * Enable GuarDuty monitoring
 * Send new GuardDuty findings to the monitoring stack
