@@ -7,3 +7,9 @@ As of 3/30/2019 AWS doesn't have a good method of easily analyzing it's native (
 2. ElasticSearch Cluster for log consolidation
 3. Kinesis Stream for buffering incoming eents
 4. Kinesis Firehose for delivering Cloudtrail events to ElasticSearch
+
+
+##To-Do
+
+* Enable GuarDuty monitoring
+* Send new GuardDuty findings to the monitoring stack
