@@ -26,7 +26,6 @@ resource "aws_elasticsearch_domain" "es" {
   encrypt_at_rest {
     enabled = false
   }
-
 }
 
 # Load current execution context
@@ -49,10 +48,10 @@ data "aws_iam_policy_document" "es-domain-policy" {
       values   = ["136.25.13.183/32"]
     }
   }
-}s
+}
 
 # data section for cognito
-data "aws_iam_policy_document" "es-domain-firehose-policy" {
+s data "aws_iam_policy_document" "es-domain-firehose-policy" {
   statement {
     sid    = "AllowCognitoES"
     effect = "Allow"
