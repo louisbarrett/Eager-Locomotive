@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "es-domain-policy" {
 }
 
 # data section for cognito
-s data "aws_iam_policy_document" "es-domain-firehose-policy" {
+data "aws_iam_policy_document" "es-domain-firehose-policy" {
   statement {
     sid    = "AllowCognitoES"
     effect = "Allow"
@@ -65,43 +65,4 @@ s data "aws_iam_policy_document" "es-domain-firehose-policy" {
   }
 }
 
-#   statement {
-#     sid    = "AuthenticatedESAccess"
-#     effect = "Allow"
-
-
-#     actions = [
-#       "es:*",
-#     ]
-
-
-#     principals {
-#       type        = "AWS"
-#       identifiers = ["${aws_iam_role.cognito-authenticated-users.arn}"]
-#     }
-
-
-#     resources = ["*"]
-#   }
-
-
-#   statement {
-#     effect = "Allow"
-
-
-#     actions = [
-#       "es:*",
-#     ]
-
-
-#     principals = {
-#       type = "AWS"
-
-
-#       identifiers = [
-#         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/Cognito_AuthenticatedUsersAuth_Role",
-#       ]
-#     }
-#   }
-# }
 
