@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "es-domain-policy" {
     condition = {
       test     = "IpAddress"
       variable = "aws:sourceIp"
-      values   = ["136.25.13.183/32"]
+      values   = ["${var.public_ip}/32"]
     }
   }
 }

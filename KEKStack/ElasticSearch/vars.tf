@@ -1,6 +1,10 @@
 variable "ES_Domain" {
   description = "The name to use when creating the elastic search domain (must be lowercase)"
 }
+variable "public_ip" {
+  
+}
+
 
 variable "ES_Domain_Size" {
   description = "Cluster size of Elastic search domain"

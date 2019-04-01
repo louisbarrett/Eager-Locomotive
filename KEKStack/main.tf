@@ -1,6 +1,7 @@
 #Deploy ElasticSearch
 module "ElasticSearch" {
   source            = "./ElasticSearch/"
+  public_ip         = "${var.public_ip}"
   ES_Domain         = "${var.es_domain_name}"
   ES_Domain_Size    = 1
   Firehose_Role_ARN = "${module.KinesisToElasticsearch.firehose_arn}"
@@ -40,4 +41,5 @@ module "Lambda" {
 
 module "GuardDuty" {
   source = "./GuardDuty/"
+  count = 0
 }
