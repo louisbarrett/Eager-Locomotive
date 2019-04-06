@@ -8,7 +8,14 @@ As of 3/30/2019 AWS doesn't have a good method of easily analyzing it's native (
 3. Kinesis Stream for buffering incoming eents
 4. Kinesis Firehose for delivering Cloudtrail events to ElasticSearch
 
+## Currently Implemented
+* Configure Cloudtrail
+* Configure ElasticSearch
+* Configure IAM Policies
+* Configure S3 Buckets
+* Assign Cloudtrail event triggers
 
+<img src ="./Images/Eager_Locomotive.svg">
 ## To-Do
 
 * Enable GuardDuty monitoring
