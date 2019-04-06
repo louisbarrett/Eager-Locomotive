@@ -37,7 +37,10 @@ Features
   * Create new kinesis stream 
   * Configure cloudwatch event triggers
   
-# Requirements
+# Deployment
+
+
+## Requirements
 
 1. An Amazon Web Services Account
 * Permissions
