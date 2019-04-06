@@ -9,11 +9,13 @@
 
 Features
 
-1. ElasticSearch - Scalable cluster for log consolidation
-2. Cloudtrail - Management and data events delivered to ElasticSearch
-3. Lambda - Delivers JSON blobs to Kinesis streams
-3. Kinesis Stream - Scalable event queue for incoming log data
-4. Kinesis Firehose - Real-time delivery of events from streams, to ElasticSearch
+* ElasticSearch - Scalable cluster for log consolidation
+* Cloudtrail - Management and data events delivered to ElasticSearch
+* Lambda - Delivers JSON blobs to Kinesis streams
+* Kinesis Stream - Scalable event queue for incoming log data
+* Kinesis Firehose - Real-time delivery of events from streams, to ElasticSearch
+* Extensible - Adding a log sources is simple and efficient
+
 
 ## Architecture 
 
@@ -29,7 +31,7 @@ Features
 * Assign Cloudtrail event triggers
 
 
-## To-Do
+## Pending Implemention
 
 * Enable GuardDuty monitoring
  * Send new GuardDuty findings to the monitoring stack
