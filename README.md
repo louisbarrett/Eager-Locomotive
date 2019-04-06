@@ -7,7 +7,7 @@
 
   The purpose of this project is to greatly simplify the process of deploying a basic security monitoring stack on AWS by defining the entire stack as a repeatable `Terraform` plan.
 
-Features
+*Features*
 
 * ElasticSearch - Scalable cluster for log consolidation
 * Cloudtrail - Management and data events delivered to ElasticSearch
