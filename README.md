@@ -2,7 +2,10 @@
 (Kinesis+ElasticSearch+Kibana Stack for Security Monitoring)
 
 ## Overview
-As of 3/30/2019 AWS doesn't have a good method of easily analyzing it's native (cloudtrail,elb,vpc flow) logs. The purpose of this project is to simply the process by boot strapping the following:
+
+  As of March 2019, Amazon Web Services does not have a way of easily analyzing the logs it's services produce. The native AWS solutions are difficult to search, offer little retention capability, and lacks robust alerting.
+
+  The purpose of this project is to greatly simplify the process of deploying a basic security monitoring stack on AWS by defining the entire stack as a repeatable `Terraform` plan.
 
 1. Cloudtrail management events enabled and delivered to S3
 2. ElasticSearch Cluster for log consolidation
@@ -14,10 +17,12 @@ As of 3/30/2019 AWS doesn't have a good method of easily analyzing it's native (
 <img src ="./Images/Eager_Locomotive.svg">
 
 ## Currently Implemented
-* Configure Cloudtrail
+* Enable and configure Cloudtrail
 * Configure ElasticSearch
 * Configure IAM Policies
 * Configure S3 Buckets
+* Lambda for sending Cloudtrail events to ElasticSearch
+* CloudWatch event trigger for sending events to ElasticSearch
 * Assign Cloudtrail event triggers
 
 
