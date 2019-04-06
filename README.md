@@ -23,6 +23,9 @@
   * The entire stack can be deployed in approximately _8_ _minutes_
 
 
+* Cost Effective - In a high volume environment TCO is approximately $34k USD/year
+
+
 ## Architecture 
 
 <img src ="./Images/Eager_Locomotive.svg">
