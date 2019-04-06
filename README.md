@@ -41,7 +41,7 @@ Features
 
 1. An Amazon Web Services Account
 * Permissions
-  * `s3:CreateBucket`
+  * `S3`
     * `CreateBucket`
     * `CreateBucketPolicy`
     * `CreateBucketTrigger`
