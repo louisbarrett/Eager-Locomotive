@@ -35,5 +35,5 @@ Features
 
 * Enable GuardDuty monitoring
  * Send new GuardDuty findings to the monitoring stack
-  * create new kinesis stream 
-  * configure cloudwatch event triggers
+  * Create new kinesis stream 
+  * Configure cloudwatch event triggers
