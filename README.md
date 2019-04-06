@@ -36,3 +36,12 @@ Features
 * Enable GuardDuty monitoring - Send new GuardDuty findings to the monitoring stack
   * Create new kinesis stream 
   * Configure cloudwatch event triggers
+  
+# Requirements
+
+1. An Amazon Web Services Account
+* Permissions
+  * `s3:CreateBucket`
+2. Terraform 0.11.10 or greater
+3. Golang 1.11.0 or greater
+
