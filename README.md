@@ -20,7 +20,6 @@ As of 3/30/2019 AWS doesn't have a good method of easily analyzing it's native (
 * Configure S3 Buckets
 * Assign Cloudtrail event triggers
 
-<img src ="./Images/Eager_Locomotive.svg">
 
 ## To-Do
 
