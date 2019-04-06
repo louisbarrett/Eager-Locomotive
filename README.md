@@ -23,7 +23,8 @@
   * The entire stack can be deployed in approximately _8_ _minutes_
 
 
-* Cost Effective - In a high volume environment TCO is approximately $34k USD/year
+* Cost Effective - In a high volume environment (70 million events per day) TCO is approximately $34k USD/year (13x m4.large.elasticsearch)
+  * ElasticSearch instance size is the key cost control, reduce the cluster size to meet your needs 
 
 
 ## Architecture 
