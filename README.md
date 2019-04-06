@@ -9,12 +9,18 @@
 
 *Features*
 
-* ElasticSearch - Scalable cluster for log consolidation
-* Cloudtrail - Management and data events delivered to ElasticSearch
-* Lambda - Delivers JSON blobs to Kinesis streams
-* Kinesis Stream - Scalable event queue for incoming log data
-* Kinesis Firehose - Real-time delivery of events from streams, to ElasticSearch
-* Extensible - Adding a log sources is simple and efficient
+* Uses AWS Services
+  * ElasticSearch - Scalable cluster for log consolidation
+  * Cloudtrail - Management and data events delivered to ElasticSearch
+  * Lambda - Delivers JSON blobs to Kinesis streams
+  * Kinesis Stream - Scalable event queue for incoming log data
+  * Kinesis Firehose - Real-time delivery of events from streams, to ElasticSearch
+
+* Extensible - Adding a log sources is simple and scalable
+  * Create a new kinesis stream+firehose pair to add new log data
+  
+* Efficient  - Cloudtrail event is delivered in near real time
+  * The entire stack can be deployed in approximately _8_ _minutes_
 
 
 ## Architecture 
