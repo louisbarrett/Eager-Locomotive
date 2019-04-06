@@ -12,6 +12,6 @@ As of 3/30/2019 AWS doesn't have a good method of easily analyzing it's native (
 ## To-Do
 
 * Enable GuardDuty monitoring
-* Send new GuardDuty findings to the monitoring stack
+ * Send new GuardDuty findings to the monitoring stack
   * create new kinesis stream 
   * configure cloudwatch event triggers
