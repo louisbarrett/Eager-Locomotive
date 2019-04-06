@@ -53,16 +53,6 @@
 ## Requirements
 
 1. An Amazon Web Services Account
-* Permissions
-  * `S3`
-    * `CreateBucket`
-    * `CreateBucketPolicy`
-    * `CreateBucketTrigger`
-  * `IAM`
-    * `IAM:CreateRole`
-    * `IAM:CreatePolicy`
-    * `IAM:CreatePolicyAttachment`
-
 2. Terraform 0.11.10 or greater
 3. Golang 1.11.0 or greater
 
