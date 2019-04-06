@@ -41,5 +41,5 @@ module "Lambda" {
 
 module "GuardDuty" {
   source = "./GuardDuty/"
-  count = 0
+  count  = 0
 }

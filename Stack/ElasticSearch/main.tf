@@ -64,5 +64,3 @@ data "aws_iam_policy_document" "es-domain-firehose-policy" {
     resources = ["*"]
   }
 }
-
-
