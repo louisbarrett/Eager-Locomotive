@@ -7,10 +7,13 @@
 
   The purpose of this project is to greatly simplify the process of deploying a basic security monitoring stack on AWS by defining the entire stack as a repeatable `Terraform` plan.
 
-1. Cloudtrail management events enabled and delivered to S3
-2. ElasticSearch Cluster for log consolidation
-3. Kinesis Stream for buffering incoming eents
-4. Kinesis Firehose for delivering Cloudtrail events to ElasticSearch
+Features
+
+1. ElasticSearch - Scalable cluster for log consolidation
+2. Cloudtrail - Management and data events delivered to ElasticSearch
+3. Lambda - Delivers JSON blobs to Kinesis streams
+3. Kinesis Stream - Scalable event queue for incoming log data
+4. Kinesis Firehose - Real-time delivery of events from streams, to ElasticSearch
 
 ## Architecture 
 
