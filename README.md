@@ -46,6 +46,7 @@
 * Enable GuardDuty monitoring - Send new GuardDuty findings to the monitoring stack
   * Create new kinesis stream 
   * Configure cloudwatch event triggers
+* Enable Amazon Cognito for Kibana Authentication
   
 # Deployment
 
