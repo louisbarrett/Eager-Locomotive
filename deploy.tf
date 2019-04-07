@@ -1,5 +1,5 @@
-module "KEK_Stack" {
-  source               = "./KekStack"
+module "MonitoringStack" {
+  source               = "./Stack"
   es_domain_name       = "${var.es_domain_name}"
   cloudtrail_s3_bucket = "${var.cloudtrail_s3_bucket}"
   failure_s3_bucket    = "${var.failure_s3_bucket}"
