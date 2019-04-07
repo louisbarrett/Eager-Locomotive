@@ -7,5 +7,5 @@ module "MonitoringStack" {
 }
 
 output "kibana_endpoint" {
-  value = "http://${module.Stack.kibana_endpoint}"
+  value = "http://${module.MonitoringStack.kibana_endpoint}"
 }
