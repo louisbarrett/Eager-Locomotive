@@ -8,8 +8,9 @@ resource "aws_cloudtrail" "ManagementEvents" {
 
 # Default Cloudtrail logging bucket
 resource "aws_s3_bucket" "CloudTrail" {
-  bucket = "${var.cloudtrail_s3_bucket}"
-  policy = "${data.aws_iam_policy_document.CloudTrailBucketPolicy.json}"
+  bucket        = "${var.cloudtrail_s3_bucket}"
+  policy        = "${data.aws_iam_policy_document.CloudTrailBucketPolicy.json}"
+  force_destroy = true
 }
 
 #Basic CloudTrail bucket policy
