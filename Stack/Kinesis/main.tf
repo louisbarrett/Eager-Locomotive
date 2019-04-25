@@ -34,7 +34,8 @@ resource aws_kinesis_firehose_delivery_stream "outgoing-firehose-es" {
 }
 
 resource "aws_s3_bucket" "delivery_failure_bucket" {
-  bucket = "${var.delivery_failure_bucket_name}"
+  bucket        = "${var.delivery_failure_bucket_name}"
+  force_destroy = true
 }
 
 resource "aws_iam_role" "firehose_role" {
