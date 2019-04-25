@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "cloudtrail-kin" {
   function_name = "cloudtrail-kin"
   description   = "Delivers centralized cloudtrail logs into elasticsearch"
-  filename      = "./KekStack/Deployment/cloudtrail-kin.zip"
+  filename      = "./Stack/Deployment/cloudtrail-kin.zip"
   handler       = "cloudtrail-kin"
   runtime       = "go1.x"
   role          = "${aws_iam_role.lambda-role.arn}"
