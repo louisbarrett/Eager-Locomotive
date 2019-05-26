@@ -7,10 +7,6 @@ resource "aws_elasticsearch_domain" "es" {
     instance_count = "${var.ES_Domain_Size}"
   }
 
-  advanced_options {
-    "rest.action.multi.allow_explicit_index" = "true"
-  }
-
   access_policies = "${data.aws_iam_policy_document.es-domain-policy.json}"
 
   snapshot_options {
@@ -37,12 +33,12 @@ data "aws_iam_policy_document" "es-domain-policy" {
     effect  = "Allow"
     actions = ["es:*"]
 
-    principals = {
+    principals  {
       type        = "AWS"
       identifiers = ["*"]
     }
 
-    condition = {
+    condition {
       test     = "IpAddress"
       variable = "aws:sourceIp"
       values   = ["${var.public_ip}/32"]

@@ -8,8 +8,8 @@ resource "aws_lambda_function" "cloudtrail-kin" {
   timeout       = 900
   memory_size   = 128
 
-  environment = {
-    variables {
+  environment  {
+    variables = {
       KINESIS_STREAM = "${var.stream_name}"
       SHARD_COUNT    = 3
     }
@@ -26,7 +26,7 @@ data "aws_iam_policy_document" "CloudTrailAssumeRole" {
     sid    = "LambdaAssumeRole"
     effect = "Allow"
 
-    principals = {
+    principals  {
       type        = "Service"
       identifiers = ["lambda.amazonaws.com"]
     }

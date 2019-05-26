@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "kinesis-assumerole" {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
 
-    principals = {
+    principals  {
       type        = "Service"
       identifiers = ["firehose.amazonaws.com"]
     }

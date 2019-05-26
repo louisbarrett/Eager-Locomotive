@@ -20,7 +20,6 @@ module "KinesisToElasticsearch" {
 module "Cloudtrail" {
   source               = "./CloudTrail/"
   cloudtrail_s3_bucket = "${var.cloudtrail_s3_bucket}"
-  count                = 1
 }
 
 # Trigger a lambda on the creation of new CloudTrail events
@@ -28,7 +27,6 @@ module "S3BucketTrigger" {
   source               = "./S3/"
   lambda_arn           = "${module.Lambda.lambda_arn}"
   cloudtrail_s3_bucket = "${var.cloudtrail_s3_bucket}"
-  count                = 1
 }
 
 # Lambda to execute when new CloudTrail logs arrive
@@ -36,10 +34,8 @@ module "Lambda" {
   source               = "./Lambda/"
   stream_name          = "incoming-cloudtrail"
   cloudtrail_s3_bucket = "${var.cloudtrail_s3_bucket}"
-  count                = 1
 }
 
 module "GuardDuty" {
   source = "./GuardDuty/"
-  count  = 0
 }

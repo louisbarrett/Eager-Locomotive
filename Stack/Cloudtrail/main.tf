@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "CloudTrailBucketPolicy" {
     effect  = "Allow"
     actions = ["s3:PutObject"]
 
-    principals = {
+    principals  {
       type        = "Service"
       identifiers = ["cloudtrail.amazonaws.com"]
     }
@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "CloudTrailBucketPolicy" {
     effect  = "Allow"
     actions = ["s3:GetBucketAcl"]
 
-    principals = {
+    principals  {
       type        = "Service"
       identifiers = ["cloudtrail.amazonaws.com"]
     }
