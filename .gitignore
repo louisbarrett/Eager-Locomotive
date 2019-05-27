@@ -1,3 +1,3 @@
-.tfstate*
-.terraform
-.DS_Store
+*.tfstate*
+*.terraform
+*.DS_Store
