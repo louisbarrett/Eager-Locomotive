@@ -7,8 +7,8 @@ import (
 	"context"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
-	"time"
 
 	"github.com/Jeffail/gabs"
 
@@ -27,22 +27,47 @@ const ThrottleSeconds = 3
 
 //KinesisDataStreamName - The name of the kinesis data stream to send okta events - Check if stream exists
 var KinesisDataStreamName = os.Getenv("KINESIS_STREAM")
+var JSONContainer *gabs.Container
+var KinesisStreamName string
+var output []rune
+var ByteSlice [][]byte
+
+// KinesisRecords  --
+var KinesisRecords []*kinesis.PutRecordsRequestEntry
 
 // JSONToKinesisBatch - Optimized version of JSONtoKinesis
-func JSONToKinesisBatch(Records []*kinesis.PutRecordsRequestEntry, KinesisDataStreamName string) {
+func JSONToKinesisBatch(Records [][]byte, KinesisDataStreamName string) {
+	sess := session.Must(session.NewSession())
+	if (len(Records)) == 0 || (len(Records)) > 500 {
+		log.Fatal("Invalid record count")
+	}
+	for n := range Records {
+		ParsedJSON, err := gabs.ParseJSON(Records[n])
+		if err != nil {
+			log.Fatal(err)
+		}
+		DataEntry := kinesis.PutRecordsRequestEntry{
+			Data:         []byte(ParsedJSON.Bytes()),
+			PartitionKey: aws.String("0"),
+		}
+		KinesisRecords = append(KinesisRecords, &DataEntry)
+		// return
+	}
+	log.Println("Writing", len(Records), "records to", KinesisDataStreamName)
 
 	var kin = kinesis.New(sess)
 	_, err := kin.PutRecords(
 		&kinesis.PutRecordsInput{
-			Records:    Records,
+			Records:    KinesisRecords,
 			StreamName: aws.String(KinesisDataStreamName),
 		})
 	if err != nil {
-		fmt.Println("An error has occured:", err)
+		log.Fatal("An error has occured", err)
 	} else {
-		fmt.Println("Record delivery complete")
-	}
+		log.Println("Record delivery complete")
 
+	}
+	KinesisRecords = nil
 }
 
 //Handler - the lambda function handler
@@ -66,70 +91,33 @@ func Handler(ctx context.Context, EventData events.S3Event) {
 		fmt.Println("Attempting to retrieve log file", BucketName, LogFileName)
 		LogObject, err := S3Client.GetObject(&S3InputObject)
 		if err != nil {
-			fmt.Println("An error occured when attempting to retrieve", BucketName, LogFileName)
-			fmt.Println(err)
-			os.Exit(1)
+			log.Fatal("An error occured when attempting to retrieve", BucketName, LogFileName, err)
 		}
 		LogContents, err := ioutil.ReadAll(LogObject.Body)
 		if err != nil {
-			fmt.Println("An error occured when attempting to read", BucketName, LogFileName)
-			fmt.Println(err)
-			os.Exit(1)
+			log.Fatal("An error occured when attempting to read", BucketName, LogFileName, err)
 		}
 		LogContentsParsed, _ := gabs.ParseJSON(LogContents)
-		LogRecords, err := LogContentsParsed.Search("Records").Children()
-		if err == nil {
-			counter := 0
-			TotalCounter := 0
-			SubCounter := 0
-			PartitionKeying := 0
-			var Records []*kinesis.PutRecordsRequestEntry
-			var PartitionKey string
-			TotalRecords := len(LogRecords)
-			for J := range LogRecords {
-				PureJSON := LogRecords[J].Bytes()
-				counter++
-				if PartitionKeying == 1 {
-					PartitionKey = "000000000001"
-					PartitionKeying = 0
-				} else {
-					PartitionKey = "000000000000"
-					PartitionKeying++
-				}
-
-				DataEntry := kinesis.PutRecordsRequestEntry{
-					Data:         []byte(PureJSON),
-					PartitionKey: aws.String(PartitionKey),
-				}
-				Records = append(Records, &DataEntry)
-				if SubCounter == 5 {
-					// fmt.Println("Throttling")
-					//wait n seconds before sending the next batch of requests
-					// ThrottleSeconds := 3
-					Throttle := time.Duration(time.Second * ThrottleSeconds)
-					time.Sleep(Throttle)
-					SubCounter = 0
-				}
-				if counter == 500 {
-					TotalCounter += counter
-					counter = 0
-					fmt.Println("Processing", TotalCounter, "of", TotalRecords, "messages")
-					JSONToKinesisBatch(Records, KinesisDataStreamName)
-					SubCounter++
-					Records = nil
-				}
-
+		Children, err := LogContentsParsed.Search("Records").Children()
+		if err != nil {
+			fmt.Println(JSONContainer.String())
+			log.Fatal("Cannot parse JSON ", err)
+		}
+		Counter := 1
+		Position := 0
+		Limit := len(Children)
+		for x := range Children {
+			ByteSlice = append(ByteSlice, Children[x].Bytes())
+			if Counter == 500 {
+				JSONToKinesisBatch(ByteSlice, KinesisStreamName)
+				ByteSlice = [][]byte{}
+				Counter = 0
 			}
-			if counter < 500 {
-				TotalCounter += counter
-				fmt.Println("Processing", TotalCounter, "of", TotalRecords, "messages")
-				JSONToKinesisBatch(Records, KinesisDataStreamName)
+			if Limit == Position+1 {
+				JSONToKinesisBatch(ByteSlice, KinesisStreamName)
 			}
-
-		} else {
-			fmt.Println("Something Really shitty happened")
-			fmt.Println(err)
-			os.Exit(1)
+			Counter++
+			Position++
 		}
 	}
 	fmt.Println("Finished retrieving logs from ", BucketName, "/", LogFileName)
