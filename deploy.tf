@@ -1,8 +1,8 @@
 module "MonitoringStack" {
   source               = "./Stack"
   es_domain_name       = "${var.es_domain_name}"
-  cloudtrail_s3_bucket = "${var.cloudtrail_s3_bucket}"
-  failure_s3_bucket    = "${var.failure_s3_bucket}"
+  cloudtrail_s3_bucket = "${var.es_domain_name}-cloudtrail-logs"
+  failure_s3_bucket    = "${var.es_domain_name}-kinesis-failed-logs"
   public_ip            = "${var.public_ip}"
 }
 

@@ -18,7 +18,7 @@ variable "elasticsearch_arn" {
 
 variable "index_rotation_interval" {
   description = "How often will we rotate indexes"
-  default     = "NoRotation"
+  default     = "OneWeek"
 }
 
 variable "document_type" {

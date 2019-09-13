@@ -34,12 +34,12 @@ resource aws_kinesis_firehose_delivery_stream "outgoing-firehose-es" {
 }
 
 resource "aws_s3_bucket" "delivery_failure_bucket" {
-  bucket        = "${var.delivery_failure_bucket_name}"
+  bucket        = "${var.delivery_failure_bucket_name}-${var.log_source}"
   force_destroy = true
 }
 
 resource "aws_iam_role" "firehose_role" {
-  name               = "firehose-es"
+  name               = "firehose-es-${var.log_source}"
   assume_role_policy = "${data.aws_iam_policy_document.kinesis-assumerole.json}"
 }
 
@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "kinesis-assumerole" {
 }
 
 resource "aws_iam_policy" "kinesis-policy" {
-  name        = "kinesis-policy"
+  name        = "kinesis-policy-${var.log_source}"
   description = "Policy for kiensis to write into es"
   policy      = "${data.aws_iam_policy_document.kinesis-policy-document.json}"
 }

@@ -14,10 +14,12 @@ resource "aws_lambda_function" "cloudtrail-kin" {
       SHARD_COUNT    = 3
     }
   }
+
+  # depends_on = "${aws.aws_lambda_permission.s3-invoke-cloudtrail-kin}"
 }
 
 resource "aws_iam_role" "lambda-role" {
-  name               = "CloudTrailToKinesis"
+  name               = "CloudTrailToKinesis-${var.cloudtrail_s3_bucket}"
   assume_role_policy = "${data.aws_iam_policy_document.CloudTrailAssumeRole.json}"
 }
 
@@ -42,7 +44,7 @@ resource "aws_iam_policy_attachment" "LambdaAccess" {
 }
 
 resource "aws_iam_policy" "CloudTrailLambdaAccess" {
-  name   = "CloudTrailLambdaAccess"
+  name   = "CloudTrailLambdaAccess--${var.cloudtrail_s3_bucket}"
   policy = "${data.aws_iam_policy_document.CloudTrailS3ToKin.json}"
 }
 
@@ -71,9 +73,10 @@ data "aws_iam_policy_document" "CloudTrailS3ToKin" {
 
 #allows s3 operations from the ops account to trigger cloudtrail delivery to es
 resource "aws_lambda_permission" "s3-invoke-cloudtrail-kin" {
-  statement_id  = "invoke-cloudtrail-kin"
+  statement_id  = "invoke-cloudtrail-kin-${var.cloudtrail_s3_bucket}"
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.cloudtrail-kin.function_name}"
   principal     = "s3.amazonaws.com"
   source_arn    = "arn:aws:s3:::${var.cloudtrail_s3_bucket}"
+  # depends_on    = ["${module.Cloudtrail.CloudTrail_S3_Bucket},${aws.aws_lambda_function.cloudtrail-kin}"  ]
 }

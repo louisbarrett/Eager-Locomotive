@@ -1,6 +1,6 @@
 resource "aws_elasticsearch_domain" "es" {
   domain_name           = "${var.ES_Domain}"
-  elasticsearch_version = "6.5"
+  elasticsearch_version = "6.8"
 
   cluster_config {
     instance_type  = "${var.Instance_Type}"
