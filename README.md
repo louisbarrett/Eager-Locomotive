@@ -16,7 +16,7 @@
   * Kinesis Stream - Scalable event queue for incoming log data
   * Kinesis Firehose - Real-time delivery of events from streams, to ElasticSearch
 
-* Extensible - Adding a log sources is simple and scalable
+* Extensible - Adding a log source is simple and scalable
   * Create a new kinesis stream+firehose pair to add new log data
   
 * Efficient  - Cloudtrail event is delivered in near real time
