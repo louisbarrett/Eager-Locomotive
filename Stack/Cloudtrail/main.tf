@@ -44,30 +44,4 @@ resource "aws_s3_bucket" "CloudTrail" {
 }
 
 #Basic CloudTrail bucket policy
-data "aws_iam_policy_document" "CloudTrailBucketPolicy" {
-  statement {
-    sid     = "CloudTrailS3Write"
-    effect  = "Allow"
-    actions = ["s3:PutObject"]
 
-    principals  {
-      type        = "Service"
-      identifiers = ["cloudtrail.amazonaws.com"]
-    }
-
-    resources = ["arn:aws:s3:::${var.cloudtrail_s3_bucket}/*"]
-  }
-
-  statement {
-    sid     = "CloudTrailS3GetAcl"
-    effect  = "Allow"
-    actions = ["s3:GetBucketAcl"]
-
-    principals  {
-      type        = "Service"
-      identifiers = ["cloudtrail.amazonaws.com"]
-    }
-
-    resources = ["arn:aws:s3:::${var.cloudtrail_s3_bucket}"]
-  }
-}
