@@ -26,9 +26,8 @@ var sess *session.Session
 const ThrottleSeconds = 3
 
 //KinesisDataStreamName - The name of the kinesis data stream to send okta events - Check if stream exists
-var KinesisDataStreamName = os.Getenv("KINESIS_STREAM")
+var KinesisDataStreamName = os.Getenv("KINESIS_STREAM_NAME")
 var JSONContainer *gabs.Container
-var KinesisStreamName string
 var output []rune
 var ByteSlice [][]byte
 
@@ -78,12 +77,13 @@ func Handler(ctx context.Context, EventData events.S3Event) {
 	var BucketName string
 	var LogFileName string
 	sess = session.New()
-
+	S3Client := s3.New(sess)
+	
 	for i := range Records {
 
 		BucketName = Records[i].S3.Bucket.Name
 		LogFileName = Records[i].S3.Object.Key
-		S3Client := s3.New(sess)
+	
 		S3InputObject := s3.GetObjectInput{
 			Bucket: aws.String(BucketName),
 			Key:    aws.String(LogFileName),
@@ -98,23 +98,23 @@ func Handler(ctx context.Context, EventData events.S3Event) {
 			log.Fatal("An error occured when attempting to read", BucketName, LogFileName, err)
 		}
 		LogContentsParsed, _ := gabs.ParseJSON(LogContents)
-		Children, err := LogContentsParsed.Search("Records").Children()
-		if err != nil {
-			fmt.Println(JSONContainer.String())
-			log.Fatal("Cannot parse JSON ", err)
-		}
+		Children:= LogContentsParsed.Children()
+		// if err != nil {
+		// 	fmt.Println(JSONContainer.String())
+		// 	log.Fatal("Cannot parse JSON ", err)
+		// }
 		Counter := 1
 		Position := 0
 		Limit := len(Children)
 		for x := range Children {
 			ByteSlice = append(ByteSlice, Children[x].Bytes())
 			if Counter == 500 {
-				JSONToKinesisBatch(ByteSlice, KinesisStreamName)
+				JSONToKinesisBatch(ByteSlice, KinesisDataStreamName)
 				ByteSlice = [][]byte{}
 				Counter = 0
 			}
 			if Limit == Position+1 {
-				JSONToKinesisBatch(ByteSlice, KinesisStreamName)
+				JSONToKinesisBatch(ByteSlice, KinesisDataStreamName)
 			}
 			Counter++
 			Position++
