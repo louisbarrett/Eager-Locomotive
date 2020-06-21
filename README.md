@@ -57,3 +57,16 @@
 2. Terraform 0.12.00 or greater
 3. Golang 1.13.0 or greater
 
+## Default index template 
+
+```
+PUT _template/default 
+{
+  "index_patterns":["*"],
+  "settings": {
+    "number_of_replicas": 0,
+    "number_of_shards":NUMBER_OF_NODES,
+    "index.mapping.total_fields.limit":6000
+  }
+}
+```
