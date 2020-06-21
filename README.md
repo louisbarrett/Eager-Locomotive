@@ -54,6 +54,6 @@
 ## Requirements
 
 1. An Amazon Web Services Account
-2. Terraform 0.11.10 or greater
-3. Golang 1.11.0 or greater
+2. Terraform 0.12.00 or greater
+3. Golang 1.13.0 or greater
 
