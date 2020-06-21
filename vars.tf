@@ -15,3 +15,4 @@ variable "es_domain_name" {
 variable "public_ip" {
   description = "Enter the public IP from which you will connect to Kibana"
 }
+

@@ -20,7 +20,3 @@ variable "index_rotation_interval" {
   description = "How often will we rotate indexes"
   default     = "OneWeek"
 }
-
-variable "document_type" {
-  default = "logevent"
-}

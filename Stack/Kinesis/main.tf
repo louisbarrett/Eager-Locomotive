@@ -26,8 +26,8 @@ resource aws_kinesis_firehose_delivery_stream "outgoing-firehose-es" {
     domain_arn            = "${var.elasticsearch_arn}"
     role_arn              = "${aws_iam_role.firehose_role.arn}"
     index_name            = "${var.log_source}"
-    type_name             = "${var.document_type}"
     index_rotation_period = "${var.index_rotation_interval}"
+    # type_name = ""
     buffering_interval    = 60
     buffering_size        = 1
   }
